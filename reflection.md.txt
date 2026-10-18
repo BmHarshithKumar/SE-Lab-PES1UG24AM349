@@ -1,0 +1,17 @@
+# Lab 5: Static Code Analysis — Reflection
+
+## 1. What did you learn from using static code analysis tools?
+
+I learned that static code analysis can identify problems in a program without executing every possible path of the program. Pylint helped identify code quality, naming, documentation, formatting, and maintainability issues. Flake8 detected Python style and syntax-related problems, while Bandit focused on security vulnerabilities. Using all three tools gave a more complete view of the quality and security of the employee payroll system.
+
+## 2. What were the most important issues you found?
+
+The most important issues were the use of `eval()`, the weak MD5 hashing algorithm, the use of `os.system()`, and the use of `random.randint()` for generating payroll tokens. These issues could create security risks. Other issues included a mutable default list argument, a bare `except`, unused variables and imports, missing function docstrings, and formatting violations.
+
+## 3. How did fixing the issues improve the program?
+
+The fixes made the program safer, cleaner, and easier to maintain while preserving its intended functionality. I replaced `eval()` with a numeric deduction rate, changed MD5 to SHA-256, replaced `os.system()` with `print()`, and used the `secrets` module for payroll tokens. I also corrected naming, indentation, exception handling, file handling, documentation, and formatting issues. After the fixes, Pylint gave the program a score of 10.00/10, Bandit reported no security issues, and Flake8 reported no issues.
+
+## 4. What would you do differently in future projects?
+
+In future projects, I would run static analysis tools during development instead of waiting until the end of the project. I would use Pylint and Flake8 regularly to maintain code quality and Bandit to identify security problems early. I would also follow Python coding conventions from the beginning, use secure APIs for security-sensitive operations, document functions properly, and review tool warnings before committing code to a repository.

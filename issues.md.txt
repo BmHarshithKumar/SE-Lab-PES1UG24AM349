@@ -1,0 +1,30 @@
+# Lab 5: Static Code Analysis — Employee Payroll System
+
+## Issues Found and Fixed
+
+| Issue | Type | Line(s) | Description | Fix Approach |
+|---|---|---:|---|---|
+| Use of weak MD5 hash | Security — High | 47 | MD5 is cryptographically weak and should not be used for security-sensitive hashing. | Replaced `hashlib.md5()` with `hashlib.sha256()`. |
+| Shell command execution using `os.system()` | Security — High | 58 | `os.system()` can introduce command-injection risks when constructing shell commands from variables. | Removed `os.system()` and used Python `print()` instead. |
+| Use of `eval()` | Security — High | 42 | `eval()` can execute arbitrary Python expressions and is unsafe when processing dynamic input. | Removed `eval()` and changed the function to accept a numeric deduction rate directly. |
+| Insecure pseudo-random number generation | Security — Low | 51 | `random.randint()` is not appropriate for security-sensitive tokens. | Replaced it with `secrets.randbelow()` while retaining the four-digit token range. |
+| Dangerous mutable default argument | Code Quality | 15 | Using `[]` as a default argument can cause the same list to be shared between function calls. | Changed the default to `None` and created a new list inside the function. |
+| Bare `except` | Code Quality | 26 | A bare exception handler can hide unexpected errors and make debugging difficult. | Changed it to specifically catch `KeyError`. |
+| Unused variable | Code Quality | 31 | `statutory_buffer` was assigned but never used. | Removed the unused variable. |
+| Comparison with `None` using `==` | Code Quality | 32 | Python convention and Pylint recommend identity comparison when checking for `None`. | Changed `== None` to `is None`. |
+| Unused import | Code Quality | 6 | The `math` module was imported but never used. | Removed the unused import. |
+| Missing function docstrings | Code Quality | Multiple | Several functions lacked documentation, reducing code readability and maintainability. | Added concise docstrings to the functions. |
+| Function naming violation | Code Style | 13 | `process_Salary` did not follow Python's snake_case naming convention. | Renamed it to `process_salary`. |
+| Regular string formatting instead of f-string | Code Style | 21 | Old `%` formatting was used where an f-string was clearer. | Replaced it with an f-string. |
+| File opened without explicit encoding | Code Quality | 55 | The file encoding was not explicitly specified. | Added `encoding="utf-8"`. |
+| File resource not managed with `with` | Code Quality | 55 | Manual file closing is less safe and readable than a context manager. | Replaced `open()`/`close()` with a `with open(...)` block. |
+| Trailing whitespace / blank-line formatting | Code Style | 24, 27 | Extra or missing blank lines caused Flake8/Pylint formatting violations. | Corrected blank-line spacing and removed trailing whitespace. |
+| Missing final newline | Code Style | End of file | The source file did not end with the required newline. | Added the final newline. |
+
+## Final Static Analysis Results
+
+- **Pylint:** 10.00/10
+- **Bandit:** No issues identified
+- **Flake8:** No issues identified
+
+All documented issues that were selected for remediation were fixed while keeping the payroll program functional.
